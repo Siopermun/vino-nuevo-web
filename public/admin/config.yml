@@ -1,5 +1,6 @@
 backend:
-  name: test-repo
+  name: git-gateway
+  branch: main # Asegúrate de que sea la rama 'main' de tu repositorio
 
 # publish_mode: editorial_workflow # Uncomment for editorial workflow
 
