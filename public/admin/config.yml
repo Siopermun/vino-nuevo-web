@@ -1,0 +1,91 @@
+backend:
+  name: test-repo
+
+# publish_mode: editorial_workflow # Uncomment for editorial workflow
+
+media_folder: "public/uploads" # Folder where user uploaded files are stored
+public_folder: "/uploads" # The public access url for folder where user uploaded files is stored
+
+collections:
+  - name: "actividades"
+    label: "Actividades"
+    folder: "src/content/actividades"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: true}
+      - {label: "Imagen", name: "image", widget: "image", required: false}
+      - {label: "Descripción Corta", name: "description", widget: "string", required: false}
+      - {label: "Contenido", name: "body", widget: "markdown", required: true}
+
+  - name: "galerias"
+    label: "Galerías"
+    folder: "src/content/galerias"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: true}
+      - {label: "Descripción", name: "description", widget: "string", required: false}
+      - {label: "Imágenes", name: "images", widget: "list", fields: [{label: "Imagen", name: "image", widget: "image"}, {label: "Descripción de Imagen", name: "alt", widget: "string"}]}
+
+  - name: "testimonios"
+    label: "Testimonios"
+    folder: "src/content/testimonios"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Autor", name: "author", widget: "string", required: true}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: true}
+      - {label: "Contenido", name: "body", widget: "markdown", required: true}
+
+  - name: "obras"
+    label: "Obras Creadas y Sociales"
+    folder: "src/content/obras"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: true}
+      - {label: "Imagen", name: "image", widget: "image", required: false}
+      - {label: "Descripción Corta", name: "description", widget: "string", required: false}
+      - {label: "Contenido", name: "body", widget: "markdown", required: true}
+
+  - name: "cursos"
+    label: "Cursos de Crecimiento"
+    folder: "src/content/cursos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Duración", name: "duration", widget: "string", required: false}
+      - {label: "Descripción", name: "body", widget: "markdown", required: true}
+      - {label: "Imagen", name: "image", widget: "image", required: false}
+
+  - name: "predicas"
+    label: "Predicas"
+    folder: "src/content/predicas"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Pastor", name: "pastor", widget: "string", required: true}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: true}
+      - {label: "Video URL (YouTube/Vimeo)", name: "video_url", widget: "string", required: false}
+      - {label: "Audio URL", name: "audio_url", widget: "string", required: false}
+      - {label: "Contenido", name: "body", widget: "markdown", required: true}
+
+  - name: "peliculas"
+    label: "Películas Cristianas"
+    folder: "src/content/peliculas"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Año", name: "year", widget: "number", required: false}
+      - {label: "Director", name: "director", widget: "string", required: false}
+      - {label: "Descripción", name: "body", widget: "markdown", required: true}
+      - {label: "Imagen de Portada", name: "cover_image", widget: "image", required: false}
+      - {label: "Trailer URL", name: "trailer_url", widget: "string", required: false}

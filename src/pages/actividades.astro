@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Use import.meta.glob for content files
+const allActividadesModules = import.meta.glob('../content/actividades/*.md');
+const allActividades = await Promise.all(
+  Object.values(allActividadesModules).map(async (module) => await module())
+);
+
+// Sort by date as before
+const actividades = allActividades
+  .filter(Boolean) // Filter out any undefined/null results if map fails
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+---
+
+<Layout title="Actividades Recientes - Vino Nuevo en Odres Nuevo">
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-neutral-dark mb-8 text-center">Nuestras Actividades Recientes</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {actividades.length > 0 ? (
+                actividades.map((actividad) => {
+                    const date = new Date(actividad.frontmatter.date);
+                    const formattedDate = date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+                    // Extract slug from file path
+                    const slug = actividad.url.split('/').pop()?.replace('.md', '');
+
+                    return (
+                        <article class="bg-neutral-light rounded-lg shadow-md overflow-hidden">
+                            {actividad.frontmatter.image && (
+                                <img src={actividad.frontmatter.image} alt={actividad.frontmatter.title} class="w-full h-48 object-cover"/>
+                            )}
+                            <div class="p-6">
+                                <h2 class="text-2xl font-semibold text-primary-blue mb-2">{actividad.frontmatter.title}</h2>
+                                <p class="text-neutral-dark text-sm mb-4">
+                                    Fecha: {formattedDate}
+                                </p>
+                                <p class="text-neutral-dark leading-relaxed">
+                                    {actividad.frontmatter.description}
+                                </p>
+                                <a href={`/actividades/${slug}`} class="text-primary-blue hover:underline mt-4 inline-block">Leer más &rarr;</a>
+                            </div>
+                        </article>
+                    );
+                })
+            ) : (
+                <p class="col-span-full text-center text-xl text-neutral-dark">No hay actividades recientes para mostrar.</p>
+            )}
+        </div>
+    </main>
+</Layout>
